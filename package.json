@@ -1,0 +1,15 @@
+{
+  "name": "offpash-ghost",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "debug": "^3.0.1",
+    "express": "^4.15.4",
+    "moment": "^2.18.1",
+    "moment-timezone": "^0.5.13",
+    "mongoose": "^4.11.12",
+    "ramda": "^0.24.1"
+  }
+}
