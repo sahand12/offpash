@@ -121,7 +121,7 @@ NahangServer.prototype.start = function start(externalApp) {
  */
 NahangServer.prototype.stop = function stop() {
   return new Promise(resolve => {
-    if (self.httpServer === null) { resolve(this); }
+    if (this.httpServer === null) { resolve(this); }
     else {
       this.httpServer.close(() => {
         events.emit('server:stop');
@@ -181,7 +181,6 @@ NahangServer.prototype.closeConnections = function closeConnections() {
       socket.destory();
     }
   });
-  return;
 };
 
 /**
