@@ -26,7 +26,7 @@ nahang({})
     debug('Starting Nahang');
 
     // Let Nahang handle starting our server instance.
-    return nahangServer.start(parentApp)
+    return nahangServer.start(parentApp) // @TODO: isn't is better to remove this parentApp from here?
       .then(function afterStart() {
         logging.info(`Ghost boot ${(Date.now() - startTime) / 1000}s`);
       });
