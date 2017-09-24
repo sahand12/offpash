@@ -259,6 +259,69 @@ class NahangLogger {
 
     return newObj;
   }
+  
+  /**
+   * Because arguments can contain lots of different things, we prepare the arguments here.
+   * This function allows us to use logging very flexible!
+   *
+   *   logging.info('HEY', 'DU') --> is one string
+   *   logging.info({}, {}) -> is one object
+   *   logging.error(new Error()) -> is {err: new Error()}
+   *
+   * @param {string} type - enum('info', 'warn', 'error')
+   * @param {Array} args
+   */
+  log(type, args) {
+    let modifiedArguments;
+    
+    each(args, function(value) {
+      if (value instanceof Error) {
+        if (!modifiedArguments) { modifiedArguments = {}; }
+        modifiedArguments.err = value;
+      }
+      else if (isObject(value)) {
+        if (!modifiedArguments) { modifiedArguments = {}; }
+        Object.keys(value)
+          .forEach(key => modifiedArguments[key] = value[key]);
+      }
+      else{
+        if (!modifiedArguments) { modifiedArguments = ''; }
+        modifiedArguments += value;
+        modifiedArguments += ' ';
+      }
+    });
+    
+    each(this.streams, logger => {
+      // If we have both a stdout and stderr stream, don't log errors to stdout
+      // because it would result in duplicate logs
+      if (type === 'error' && logger.name === 'stdout' && this.transports.includes('stderr')) {
+        return;
+      }
+      
+      // Only stream the log if regex matches log entry
+      // use jsonStringifySafe because req/res can contain circular dependencies
+      if (logger.match) {
+        if (new RegExp(logger.match).test(jsonStringifySafe(modifiedArguments).replace(/"/g, ''))) {
+          logger.log[type](modifiedArguments);
+        }
+      }
+      else {
+        logger.log[type](modifiedArguments);
+      }
+    });
+  }
+  
+  info(...args) {
+    this.log('info', args);
+  }
+  
+  warn(...args) {
+    this.log('warn', args);
+  }
+  
+  error(...args) {
+    this.log('error', args);
+  }
 }
 
 module.exporgs = NahangLogger;

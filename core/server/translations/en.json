@@ -1,0 +1,159 @@
+{
+  "common": {
+    "mail": {
+      "title": "Nahang at {domain}"
+    },
+    "seeLinkForInstructions": "See {link} for instructions.",
+    "time": {
+      "seconds": "seconds"
+    },
+    "api": {
+      "authentication": {
+        "mail": {
+          "resetPassword": "Reset Password",
+          "checkEmailForInstructions": "Check you email for further instructions.",
+          "passwordChanged": "Password changed successfully.",
+          "invitationAccepted": "Invitation accepted.",
+          "yourNewNahangApp": "Your New Nahang App"
+        }
+      },
+      "mail": {
+        "testNahangEmail": "Test Nahang Email"
+      },
+      "users": {
+        "mail": {
+          "invitedByName": "{invitedByName} has invited you to join {appName}"
+        }
+      },
+      "clients": {
+        "clientNotFound": "Client not found"
+      }
+    }
+  },
+  "errors": {
+    "api": {
+      "authentication": {},
+      "clients": {},
+      "configuration": {},
+      "common": {},
+      "db": {},
+      "images": {},
+      "icons": {},
+      "job": {},
+      "mail": {},
+      "notifications": {},
+      "settings": {},
+      "slugs": {},
+      "subscribers": {},
+      "tags": {},
+      "users": {}
+    },
+    "config": {},
+    "data": {},
+    "errors": {},
+    "general": {},
+    "httpServer": {},
+    "mail": {},
+    "middleware": {},
+    "models": {},
+    "permissions": {},
+    "update-check": {},
+    "utils": {}
+  },
+  "warnings": {
+    "index": {
+      "usingDirectMethodToSendMail": "Nahang is attempting to use a direct method to send mail. \nIt is recommended that you explicitly configure an email service.",
+      "unableToSendMail": "Nahang is currently unable to send email."
+    },
+    "helpers": {
+      "helperNotAvailable": "",
+      "flagMustBeEnabled": "",
+      "seeLink": "",
+      "mustBeCalledAsBlock": "",
+      "foreach": {
+        "iteratorNeeded": ""
+      },
+      "get": {
+        "invalidResource": ""
+      },
+      "has": {
+        "invalidAttribute": ""
+      },
+      "index": {
+        "missingHelper": ""
+      },
+      "is": {
+        "invalidAttribute": ""
+      },
+      "navigation": {
+        "invalidData": "navigation data is not an object or is a function",
+        "valuesMustBeDefined": "All values must be defined for label, url and current",
+        "valuesMustBeString": "Invalid value, Url and Label must be strings"
+      },
+      "pagination": {
+        "invalidData": "pagination data is not an object or is a function",
+        "valuesMustBeDefined": "All values must defined for page, pages, limit and total",
+        "nextPrevValuesMustBeNumeric": "Invalid value, Next/Prev must be a number",
+        "valuesMustBeNumeric": "Invalid value, check page, pages, limit and total are numbers."
+      },
+      "plural": {
+        "valuesMustBeDefined": "All values must be defined for empty, singular and plural."
+      },
+      "img_url": {
+        "attrIsRequired": "Attribute is required e.g. \\{\\{image_url feature_image\\}\\}",
+        "attrIsUnknown": "Attribute passed to \\{\\{image_url\\}\\} is unknown."
+      },
+      "template": {
+        "templateNotFound": "Template {name} not found."
+      }
+    }
+  },
+  "notices": {
+    "controllers": {
+      "newVersionAvailable": "Nahang {version} is available! Hot Damn. {link} to update."
+    },
+    "index": {
+      "welcomeToNahang": "Welcome to Nahang.",
+      "youAreRunningUnderEnvironment": "You're running under the <strong> {environment} </strong> environment.",
+      "yourURLIsSetTo": "Your URL is set to <strong> {url} </strong>."
+    },
+    "httpServer": {
+      "cantTouchThis": "Can't touch this",
+      "nahangIsRunning": "Nahang is running...",
+      "yourAppIsAvailableOn": "Your app is now available on {url}",
+      "ctrlCToShutdown": "Ctrl+C to shutdown",
+      "nahangIsRunningIn": "Nahang is running in {env}...",
+      "listeningOn": "Listening on: {host}:{port}",
+      "urlConfiguredAs": "Url configured as: {url}",
+      "nahangHasShutdown": "Nahang has shut down",
+      "yourAppIsNowOffline": "Your app is now offline",
+      "nahangWasRunningFor": "Nahang was running for",
+      "nahangIsClosingConnections": "Nahang is closing connections"
+    },
+    "mail": {
+      "messageSent": "Message sent. Double check inbox and spam folder!"
+    },
+    "api": {
+      "users": {
+        "pwdChangedSuccessfully": "Password changed successfully."
+      }
+    },
+    "data": {
+      "fixtures": {},
+      "utils": {
+        "index": {
+          "noSupportForDatabase": "No support for database client {client}"
+        }
+      },
+      "validation": {
+        "index": {
+          "valueCannotBeBlank": "Value in [{tableName}.{columnKey}] can not be blank.",
+          "valueMustBeBoolean": "Value in [{tableName}.{columnKey}] must be one of true, false, 0 or 1.",
+          "valueExceedsMaxLength": "Value in [{tableName}.{columnKey}] can not be blank.",
+          "valueIsNotInteger": "Value in [{tableName}.{columnKey}] is not an integer.",
+          "validationFailed": "Validation ({validationName}) failed for {key}."
+        }
+      }
+    }
+  }
+}

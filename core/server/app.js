@@ -53,7 +53,7 @@ module.exports = function setupParentApp() {
   parentApp.use('/nahang', require('./admin')());
 
   // PUBLIC
-  parentApp.use(require('./discount')());
+  parentApp.use(require('./public-facing')());
 
   debug('ParentAPP setup end');
 

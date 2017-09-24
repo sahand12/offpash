@@ -79,19 +79,9 @@ const errors = {
       super(Object.assign({},{
         statusCode: 400,
         level: 'critical',
-        errorType: 'InternalUsageError',
-        message: 'We detected a misuse. Please red the stack trace',
-      },options));
-    }
-  },
-  IgnitionError: class InternalError extends IgnitionError {
-    constructor(options) {
-      super(Object.assign({}, {
-        statusCode: 400,
-        level: 'critical',
         errorType: 'IncorrectUsageError',
         message: 'We detected a misuse. Please red the stack trace',
-      }, options));
+      },options));
     }
   },
 
@@ -105,12 +95,12 @@ const errors = {
     }
   },
 
-  BadRequestError: class BadRequestEror extends IgnitionError {
+  BadRequestError: class BadRequestError extends IgnitionError {
     constructor(options) {
       super(Object.assign({}, {
         statusCode: 400,
         errorType: 'BadRequestError',
-        message: 'The request could not be understood',
+        message: 'The request could not be understood.',
       }, options));
     }
   },
