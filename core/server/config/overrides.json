@@ -1,0 +1,21 @@
+{
+  "paths": {
+    "appRoot": ".",
+    "corePath": "core/",
+    "clientAssets": "core/built/assets",
+    "adminViews": "core/server/admin/views",
+    "defaultViews": "core/server/views",
+    "publicFilePath": "core/server/public"
+  },
+  "routeKeywords": {},
+  "slugs": {},
+  "uploads": {
+    "images": {
+      "extensions": [".jpg", ".jpeg", ".gif", ".png", ".svg", ".svgz"],
+      "contentTypes": ["image/jpeg", "image/png", "image/gif", "image/svg+xml"]
+    }
+  },
+  "maintenance": {
+    "enabled": false
+  }
+}

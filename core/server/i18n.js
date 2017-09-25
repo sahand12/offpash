@@ -27,7 +27,7 @@ I18n = {
     }
     else {
       msg = new MessageFormat(string, currentLocale);
-      msg = msg.format(binding);
+      msg = msg.format(bindings);
     }
     
     return msg;

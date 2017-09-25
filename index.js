@@ -18,7 +18,7 @@ parentApp = express();
 
 debug('Initialising Nahang');
 
-nahang({})
+nahang()
   .then(function (nahangServer) {
     // Mount our Nahang instance on our desired subdirectory path if it exists.
     parentApp.use(utils.url.getSubdir(),nahangServer.rootApp);
