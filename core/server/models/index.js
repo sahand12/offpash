@@ -1,5 +1,4 @@
 'use strict';
-const _ = require('lodash');
 
 const Base = require('./base');
 // Enable event listeners
@@ -23,9 +22,11 @@ const models = [
   'user',
 ];
 
-function init() {
+const init = function init() {
   exports.Base = Base;
   models.forEach(name => Object.assign(exports, {name: require('./${name}')}));
-}
+};
 
-exports.init = init;
+exports = module.exports = {
+  init,
+};
