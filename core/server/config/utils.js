@@ -1,5 +1,5 @@
 'use strict';
-const {join} = require('path');
+const {join, isAbsolute, normalize} = require('path');
 const fs = require('fs-extra');
 const _ = require('lodash');
 
@@ -29,3 +29,28 @@ exports.checkUrlProtocol = function checkUrlProtocol() {
     throw new Error('URL in config must be provided with protocol, e.g. "http://my-nahang-app.com"');
   }
 };
+
+/*
+ * Transforms all relative paths to absolute paths
+ *
+ * path (obj keys) must be string.
+ * path must match minimum one / or \
+ * path can be a '.' to represent current folder
+ */
+exports.makePathsAbsolute = function makePathsAbsolute(obj, parentKeyInConfigObject) {
+  _.each(obj, (configValue, pathsKey) => {
+    if (_.isObject(configValue)) {
+      makePathsAbsolute.bind(this)(configValue, `${parentKeyInConfigObject}:${pathsKey}`);
+    }
+    else if (_.isString(configValue) &&
+      (configValue.match(/\/+|\\+/) || configValue === '.') &&
+      !isAbsolute(configValue)
+    ) {
+      this.set(
+        `${parentKeyInConfigObject}:${pathsKey}`,
+        normalize(join(__dirname, '../../..', configValue))
+      );
+    }
+  });
+};
+

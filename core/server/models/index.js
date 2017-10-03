@@ -1,6 +1,7 @@
 'use strict';
 
 const Base = require('./base');
+
 // Enable event listeners
 require('./base/listeners');
 
@@ -27,6 +28,4 @@ const init = function init() {
   models.forEach(name => Object.assign(exports, {name: require('./${name}')}));
 };
 
-exports = module.exports = {
-  init,
-};
+exports.init = init;

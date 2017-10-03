@@ -1,5 +1,5 @@
+'use strict';
 const {EventEmitter} = require('events');
-const util = require('util');
 let eventRegistryInstance;
 
 class EventRegistry extends EventEmitter {

@@ -35,8 +35,13 @@ _private.loadNconf = function loadNconf({
   nconf.file('default-env', path.join(baseConfigPath, 'env', `config.${env}.json`));
   nconf.file('defaults', path.join(baseConfigPath, 'defaults.json'));
   
+  nconf.makePathsAbsolute = utils.makePathsAbsolute.bind(this);
   nconf.getContentPath = utils.getContentPath.bind(nconf);
   nconf.doesContentPathExist = utils.doesContentPathExist.bind(nconf);
+  
+  // so we can get the absolute path of our files and folders from anywhere in the app
+  nconf.makePathsAbsolute(nconf.get('paths'), 'paths');
+  nconf.makePathsAbsolute(nconf.get('database:connection'), 'database:connection');
   
   /**
    * Check if the URL in config has a protocol
