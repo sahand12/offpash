@@ -6,21 +6,13 @@ const Base = require('./base');
 require('./base/listeners');
 
 const models = [
-  'accessToken',
-  'appField',
-  'appSetting',
-  'app',
-  'category',
-  'clientTrustedDomain',
-  'client',
-  'invite',
-  'permission',
-  'refreshToken',
-  'role',
-  'settings',
-  'subscriber',
-  'tag',
-  'user',
+  'AccessToken',
+  'Brute',
+  'Client',
+  'Permission',
+  'RefreshToken',
+  'Settings',
+  'User',
 ];
 
 const init = function init() {

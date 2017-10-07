@@ -1,132 +1,53 @@
 'use strict';
-let schema = {tables: {}};
+const mongoose = require('mongoose');
+let schema;
+
 const users = {
-  fnm: {
-    type: String,
-    alias: 'firstName',
-    validators: {
-      maxLength: 40,
-    },
-    setters: {
-      lowercase: true,
-      trim: true,
-    }
-  },
-  lnm: {
-    type: String,
-    alias: 'lastName',
-    validators: {
-      maxLength: 40,
-    },
-    setters: {
-      lowercase: true,
-      trim: true,
-    }
-  },
-  pwd: {
-    type: String,
-    alias: 'password',
-    validators: {
-      minLength: 6,
-      maxLength: 40,
-    }
-  }, // password
-  eml: {
-    type: String,
-    validators: {
-      validate() {}
-    },
-    setters: {
-      lowercase: true,
-      trim: true,
-    }
-  },
-  phn: {
-    mb: {
-      type: String,
-      alias: 'mobileNumber',
-      validators: {
-        match: /\.+/g
-      },
-      setters: {
-        trim: true,
-      }
-    },
-    hm: {
-      type: String,
-      alias: 'homeNumber',
-      validators: {
-        match: /\.+/g
-      },
-      setters: {
-        trim: true,
-      }
-    },
-    wk: {
-      type: String,
-      alias: 'workNumber',
-      validators: {
-        match: /\.+g/
-      },
-      setters: {
-        trim: true,
-      }
-    }
-  },
-  img: { // images
-    prf: [{ // profile images
-      type: String,
-      alias: 'profile'
-    }],
-    cvr: [{ // cover images
-      type: String,
-      alias: 'cover'
-    }],
+  fnm: {$type: String, alias: 'firstName', maxLength: 50, minLength: 2, lowercase: true, trim: true},
+  lnm: {$type: String, alias: 'lastName', maxLength: 50, minLength: 2, lowercase: true, trim: true},
+  pw: {$type: String, alias: 'password', minLength: 6},
+  em: {$type: String, alias: 'email', validate() {/* @TODO: validate email*/}, lowercase: true, trim: true, unique: true},
+  mbn: [{ // @TODO: build a virtual for this
+    alias: 'mobile',
+    pr: {$type: Boolean, alias: 'isPrimary', default: false},
+    nm: {$type: String, alias: 'rawNumber', trim: true},
+    ccd: {$type: String, alias: 'countryCode', default: '+98'},
+    opd: {$type: String, alias: 'operatorCode'}
+  }],
+  ph: [{
+    alias: 'phone',
+    pr: {$type: Boolean, alias: 'isPrimary', default: false},
+    tp: {$type: String, alias: 'type', enum: ['work', 'home'], lowercase: true, trim: true},
+    nm: {$type: String, alias: 'rawNumber', trim: true},
+    ccd: {$type: String, alias: 'countryCode', default: '+98'},
+    ctd: {$type: String, alias: 'cityCode'}
+  }],
+  img: {
     alias: 'images',
+    // profile images
+    pr: [{$type: String, maxLength: 2000, alias: 'profile'}],
+    // cover images
+    cv: [{$type: String, alias: 'cover', maxLength: 2000}],
   },
-  slg: {
-    type: String,
-    alias: 'slug',
-  },
-  bio: {type: String},
-  wst: {type: String}, // @TODO: more fine-grained description
-  lct: {type: Location}, // @TODO: more fine-grained description
-  scl: { // socials
-    fb: {
-      type: Object,
-      alias: 'facebook',
-    },
-    go: {
-      type: Object,
-      alias: 'google',
-    },
-    in: {
-      type: Object,
-      alias: 'instagram',
-    },
-    tw: {
-      type: Object,
-      alias: 'twitter',
-    },
+  sl: {$type: String, alias: 'slug', maxLength: 200},
+  bio: {$type: String, maxLength: 2000},
+  wst: {$type: String, alias: 'website'}, // @TODO: more fine-grained description
+  lct: {}, // @TODO: more fine-grained description
+  scl: {
     alias: 'socials',
+    fb: {$type: Object, $alias: 'facebook'},
+    go: {$type: Object, alias: 'google'},
+    in: {$type: Object, alias: 'instagram'},
+    tw: {$type: Object, alias: 'twitter'},
   },
-  sts: { // user status
-    type: String,
-    alias: 'status',
-    validators: {
-      enum: ['active', 'inactive', 'banned']
-    },
-  },
-  lcl: {type: String},
-  vsb: {type: String},
-  lsn: { // last seen
-    type: Date,
-    default: Date.now,
-  },
-  cat: {type: Date},
-  cby: {type: ObjectId},
-  uat: {type: Date},
-  uby: {type: ObjectId},
+  sts: {$type: String, alias: 'status', enum: ['active', 'inactive', 'locked', 'warn-1', 'warn-2', 'warn-3', 'warn-4'], default: 'active'},
+  lcl: {$type: String, alias: 'locale', default: 'fa-IR'},
+  vsb: {$type: String, enum: ['private', 'public'], trim: true, lowercase: true},
+  lsn: {$type: Date, alias: 'lastSeen', default: Date.now},
+  cat: {$type: Date, alias: 'createdAt', default: Date.now},
+  cby: {$type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+  uat: {$type: Date, default: Date.now},
+  uby: {$type: mongoose.Schema.Types.ObjectId, ref: 'User'},
 };
 
 const roles = {
@@ -550,7 +471,7 @@ const brute = {
   }
 };
 
-schema.tables = {
+schema = {
   accessTokens,
   apps,
   brute,
@@ -564,6 +485,5 @@ schema.tables = {
 
 /**
  * Expose Schema
- * @type {{tables: {}}}
  */
 module.exports = schema;
