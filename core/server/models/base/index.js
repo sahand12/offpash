@@ -50,4 +50,4 @@ class BaseProxy {
   }
 }
 
-module.exports = BaseModel;
+module.exports = BaseProxy;

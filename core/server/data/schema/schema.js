@@ -1,5 +1,7 @@
 'use strict';
 const mongoose = require('mongoose');
+
+const ObjectId = mongoose.Schema.Types.ObjectId;
 let schema;
 
 const users = {
@@ -157,54 +159,13 @@ const permissions = {
 };
 
 const settings = {
-  key: {
-    type: String,
-    validators: {
-      maxLength: 50,
-    },
-    setters: {
-      trim: true,
-    },
-    index: {
-      unique: true,
-    },
-  },
-  val: {
-    type: String,
-    validators: {
-      maxLength: 65535,
-    },
-    setters: {
-      trim: true,
-    },
-  },
-  typ: { // type
-    type: String,
-    alias: 'type',
-    default: 'core',
-    validators: {
-      enum: ['core', 'frontend', 'app', 'plugin', 'private', 'theme'],
-    },
-    
-  },
-  cat: {
-    type: Date,
-    alias: 'createdAt',
-    default: Date.now,
-  },
-  cby: {
-    type: ObjectId,
-    alias: 'createdBy',
-  },
-  uat: {
-    type: Date,
-    alias: 'updatedAt',
-    default: Date.now,
-  },
-  uby: {
-    type: ObjectId,
-    alias: 'updatedBy',
-  },
+  k: {$type: String, alias: 'key', maxLength: 50, trim: true, unique: true},
+  v: {$type: String, alias: 'value', maxLength: 65535, trim: true},
+  tp: {$type: String, alias: 'type', default: 'core', enum: ['core', 'frontend', 'app', 'plugin', 'private', 'theme']},
+  cat: {$type: Date, alias: 'createdAt', default: Date.now},
+  cby: {$type: ObjectId, alias: 'createdBy', ref: 'User'}, // @TODO: what should ref be?
+  uat: {$type: Date, alias: 'updatedAt', default: Date.now},
+  uby: {$type: ObjectId, alias: 'updatedBy', ref: 'User'} // @TODO: What should ref be?
 };
 
 const apps = {
@@ -275,147 +236,31 @@ const apps = {
 };
 
 // OAuth 2.0 clients
-const clients = {
-  uid: {
-    type: String,
-    alias: 'uuid',
-    validators: {
-      maxLength: 36,
-    },
-  },
-  nm: {
-    type: String,
-    alias: 'name',
-    validators: {
-      maxLength: 50,
-    },
-    index: {
-      unique: true,
-    }
-  },
-  scr: { // client secret
-    type: String,
-    alias: 'secret',
-    validators: {
-      maxLength: 256,
-    },
-  },
-  rdu: { // redirection uri
-    type: String,
-    alias: 'redirectionUri',
-    validators: {
-      maxLength: 2000,
-    },
-    setters: {
-      lowercase: true,
-      trim: true,
-    }
-  },
-  clu: { // client uri
-    type: String,
-    alias: 'clientUri',
-    validators: {
-      maxLength: 200,
-    },
-    setters: {
-      lowercase: true,
-      trim: true,
-    },
-  },
-  auu: { // auth uri
-    type: String,
-    alias: 'authUri',
-    validators: {
-      maxLength: 200,
-    },
-    setters: {
-      lowercase: true,
-      trim: true,
-    },
-  },
-  lg: { // logo
-    type: String,
-    alias: 'logo',
-    validators: {
-      maxLength: 2000,
-    },
-  },
-  st: {
-    type: String,
-    alias: 'status',
-    default: 'development',
-    validators: {
-      enum: ['development']
-    },
-  },
-  tp: { // type
-    type: String,
-    alias: 'type',
-    default: 'ua',
-    validators: {
-      enum: ['ua', 'web', 'native']
-    },
-  },
-  dsc: {
-    type: String,
-    alias: 'description',
-    validators: {
-      maxLength: 2000,
-    },
-    setters: {
-      trim: true,
-    },
-  },
-  cat: {
-    type: Date,
-    alias: 'createdAt',
-    default: Date.now,
-  },
-  cby: {
-    type: ObjectId,
-    alias: 'createdBy',
-  },
-  uat: {
-    type: Date,
-    alias: 'updatedAt',
-    default: Date.now,
-  },
-  uby: {
-    type: ObjectId,
-    alias: 'updatedBy',
-  },
+const clients = { // clients must have a list trusted domains so only request from those domains will be answered to @TODO: add them here
+  ui: {$type: String, alias: 'uuid', maxLength: 36, required: true, unique: true},
+  nm: {$type: String, alias: 'name', maxLength: 50, required: true},
+  scr: {$type: String, alias: 'secret', maxLength: 191, required: true},
+  rdu: {$type: String, alias: 'redirectionUri', maxLength: 2000, lowercase: true, trim: true},
+  clu: {$type: String, alias: 'clientUri', maxLength: 2000, lowercase: true, trim: true},
+  auu: {$type: String, alias: 'authUri', maxLength: 2000, lowercase: true, trim: true},
+  lg: {$type: String, alias: 'logo', maxLength: 2000},
+  st: {$type: String, alias: 'status', default: 'development', enum: ['development', 'enabled'], required: true},
+  tp: {$type: String, alias: 'type', default: 'ua', enum: ['ua', 'web', 'native']},
+  dsc: {$type: String, alias: 'description', maxLength: 2000, trim: true},
+  ctd: [{$type: String, alias: 'trustedDomains', maxLength: 2000}],
+  cat: {$type: Date, alias: 'createdAt', default: Date.now, required: true},
+  cby: {$type: ObjectId, alias: 'createdBy'},
+  uat: {$type: Date, alias: 'updatedAt', default: Date.now, required: true},
+  uby: {$type: ObjectId, alias: 'updatedBy'},
 };
 
 const accessTokens = {
-  tk: {
-    type: String,
-    alias: 'token',
-    validators: {
-      maxLength: 191,
-    },
-    index: {
-      unique: true,
-    },
-  },
-  uid: {
-    type: ObjectId,
-    alias: 'userId',
-    ref: 'User',
-  },
-  cid: {
-    type: ObjectId,
-    alias: 'clientId',
-    ref: 'Client',
-  },
-  iby: { // issued by
-    type: ObjectId,
-    alias: 'IssuedBy',
-    ref: 'User' // @TODO: who can issue these?
-  },
-  exp: {
-    type: Date,
-    alias: 'expires',
-  },
+  tk: {$type: String, alias: 'token', maxLength: 191, unique: true},
+  tp: {$type: String, alias: 'tokenType', enum: ['refresh', 'access']},
+  uid: {$type: ObjectId, alias: 'userId', ref: 'User'},
+  cid: {$type: ObjectId, alias: 'clientId', ref: 'Client'},
+  iby: {$type: ObjectId, alias: 'IssuedBy', ref: 'User' /*@TODO: User or refreshToken*/},
+  exp: {$type: Date, alias: 'expires'},
 };
 
 const refreshTokens = {

@@ -7,9 +7,7 @@ const utils = require('./utils');
 const env = process.env.NODE_ENV || 'development';
 let _private = {};
 
-_private.loadNconf = function loadNconf({
-  baseConfigPath = __dirname,
-  customConfigPath = process.cwd()
+_private.loadNconf = function loadNconf({baseConfigPath = __dirname, customConfigPath = process.cwd()
 } = {}) {
   debug('config start');
   const nconf = new Nconf.Provider();
@@ -35,7 +33,7 @@ _private.loadNconf = function loadNconf({
   nconf.file('default-env', path.join(baseConfigPath, 'env', `config.${env}.json`));
   nconf.file('defaults', path.join(baseConfigPath, 'defaults.json'));
   
-  nconf.makePathsAbsolute = utils.makePathsAbsolute.bind(this);
+  nconf.makePathsAbsolute = utils.makePathsAbsolute.bind(nconf);
   nconf.getContentPath = utils.getContentPath.bind(nconf);
   nconf.doesContentPathExist = utils.doesContentPathExist.bind(nconf);
   
@@ -61,7 +59,7 @@ _private.loadNconf = function loadNconf({
   
   // Wrap this in a check, otherwise nconf.get() is executed unnecessarily
   // To output this, use DEBUG=nahang:*,nahang-config
-  if (debug.enabled('nahang-config')) {
+  if (debug.enabled) {
     debug(nconf.get());
   }
   

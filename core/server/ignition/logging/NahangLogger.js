@@ -324,4 +324,4 @@ class NahangLogger {
   }
 }
 
-module.exporgs = NahangLogger;
+module.exports = NahangLogger;

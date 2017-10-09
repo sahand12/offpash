@@ -29,7 +29,7 @@ let Users;
  * Generate a random salt and then hash the password with that salt
  * @param {String} password
  */
-const generatePasswordhash = async function generatePasswordHash(password) {
+const generatePasswordHash = async function generatePasswordHash(password) {
   const salt = await bcryptGenSalt();
   return bcryptHash(password, salt);
 };
@@ -109,7 +109,6 @@ class UserProxy extends BaseProxy {
     if (validOptions[methodName]) {
       options = options.concat(validOptions)
     }
-    
     return options;
   }
   

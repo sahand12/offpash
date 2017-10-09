@@ -9,6 +9,7 @@
     },
     "api": {
       "authentication": {
+        "sampleAppDescription": "Thoughts, stories and ideas.",
         "mail": {
           "resetPassword": "Reset Password",
           "checkEmailForInstructions": "Check you email for further instructions.",
@@ -32,21 +33,113 @@
   },
   "errors": {
     "api": {
-      "authentication": {},
-      "clients": {},
-      "configuration": {},
-      "common": {},
-      "db": {},
-      "images": {},
-      "icons": {},
-      "job": {},
-      "mail": {},
-      "notifications": {},
-      "settings": {},
-      "slugs": {},
-      "subscribers": {},
-      "tags": {},
-      "users": {}
+      "authentication": {
+        "checkEmailConfigInstructions": "Please see {url} for instructions on configuring email.",
+        "invalidEmailReceived": "The server did not receive a valid email",
+        "invalidTokenProvided": "Invalid token provided",
+        "invalidTokenTypeHint": "Invalid token_type_hint given.",
+        "noEmailProvided": "No email provided",
+        "noNameProvided": "No name provided",
+        "noPasswordProvided": "No password provided",
+        "noTokenProvided": "No token provided",
+        "notLoggedIn": "You are not logged in.",
+        "notTheAppOwner": "You are not the app owner.",
+        "setupMustBeCompleted": "Setup must be completed before making this request.",
+        "setupUnableToRun": "Database missing fixture data. Please reset database and try again.",
+        "setupAlreadyCompleted": "Setup has already been completed.",
+        "tokenRevocationFailed": "Token revocation failed",
+        "unableToSendWelcomeEmail": "Unable to send welcome email, your app will continue to function."
+      },
+      "clients": {
+        "clientNotFound": "Client not found."
+      },
+      "configuration": {
+        "invalidKey": "Invalid key"
+      },
+      "common": {
+        "invalidTokenStructure": "Invalid token structure"
+      },
+      "db": {
+        "invalidFile": "Unsupported file. Please try any of the following formats: {extensions}",
+        "noPermissionToExportData": "You do not have permission to export data (no rights).",
+        "noPermissionToImportData": "You do not have permission to import data (no rights)."
+        "missingFile": "Please select a database file to import.",
+      },
+      "icons": {
+        "missingFile": "Please select an icon.",
+        "invalidFile": "App icon must be a square .ico or .png file between 60px - 1,000px, under 100kb.",
+        "couldNotGetSize": "Could not get icon dimensions"
+      },
+      "images": {
+        "missingFile": "Please select an image.",
+        "invalidFile": "Please select a valid image."
+      },
+      "invites": {
+        "inviteNotFound": "Invite not found.",
+        "inviteExpired": "Invite is expired.",
+        "emailIsRequired": "E-Mail is required",
+        "roleIsRequired": "Role is required",
+        "errorSendingEmail": {
+          "error": "Error sending email: {message}",
+          "help": "Please check your email settings and resend the invitation."
+        },
+        "notAllowedToInviteOwner": "Not allowed to invite an owner user.",
+        "notAllowedToInvite": "Not allowed to invite this role."
+      },
+      "job": {
+        "notFound": "Job not found",
+        "publishInThePast": "Use the force flag to publish a post in the past."
+      },
+      "mail": {
+        "cannotFindCurrentUser": "Could not find the current user",
+        "noPermissionToSendEmail": "You do not have permission to send email."
+      },
+      "notifications": {
+        "noPermissionToAddNotif": "You do not have permission to add notifications.",
+        "noPermissionToBrowseNotif": "You do not have permission to browse notifications.",
+        "noPermissionToDestroyNotif": "You do not have permission to destroy notifications.",
+        "noPermissionToDismissNotif": "You do not have permission to dismiss notifications.",
+        "notificationDoesNotExist": "Notification does not exist."
+      },
+      "settings": {
+        "problemFindingSetting": "Problem finding setting: {key}",
+        "accessCoreSettingFromExtReq": "Attempted to access core setting from external request",
+        "invalidJsonInLabs": "Error: Invalid JSON in settings.labs",
+        "labsColumnCouldNotBeParsed": "The column with key \"labs\" could not be parsed as JSON",
+        "tryUpdatingLabs": "Please try updating a setting on the labs page, or manually editing your DB",
+        "noPermissionToEditSettings": "You do not have permission to edit settings.",
+        "noPermissionToReadSettings": "You do not have permission to read settings."
+      },
+      "slugs": {
+        "couldNotGenerateSlug": "Could not generate slug.",
+        "unknownSlugType": "Unknown slug type '{type}'."
+      },
+      "subscribers": {
+        "missingFile": "Please select a csv.",
+        "invalidFile": "Please select a valid CSV file to import.",
+        "subscriberNotFound": "Subscriber not found.",
+        "subscriberAlreadyExists": "Email address is already subscribed."
+      },
+      "tags": {
+        "tagNotFound": "Tag not found."
+      },
+      "users": {
+        "userNotFound": "User not found.",
+        "canNotChangeOwnRole": "You can not change your own role",
+        "canNotChangeStatus": "You can not change your own status",
+        "canNotChangeOwnerRole": "You can not change Owner's role",
+        "noPermissionToEditUser": "You do not have permission to edit this user",
+        "noPermissionToAddUser": "You do not have permission to add this user",
+        "noPermissionToDestroyUser": "You do not have permission to destroy this user",
+        "noPermissionToChangeUserPwd": "You do not have permission to change the password for this user",
+        "noEmailProvided": "No email provided.",
+        "userAlreadyRegistered": "User is already registered"
+      },
+      "utils": {
+        "noPermissionToCall": "You do not have permission to {method} {docName}",
+        "noRootKeyProvided": "No root key('{docName}') provided.",
+        "invalidIdProvided": "Invalid id provided"
+      }
     },
     "config": {},
     "data": {},
