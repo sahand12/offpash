@@ -128,7 +128,7 @@ const strategies = {
           return user;
         })
         .catch(done);
-    }
+    };
     
     if (inviteToken) {
       return handleInviteToken()
