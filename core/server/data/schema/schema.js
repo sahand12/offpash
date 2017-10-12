@@ -291,29 +291,11 @@ const refreshTokens = {
 };
 
 const brute = {
-  k: {
-    type: String,
-    alias: 'key',
-    validators: {
-      maxLength: 191,
-    }
-  },
-  frq: {
-    type: Number,
-    alias: 'firstRequest',
-  },
-  lrq: {
-    type: Number,
-    alias: 'lastRequest',
-  },
-  ltm: {
-    type: Number,
-    alias: 'lifeTime'
-  },
-  cnt: {
-    type: Number,
-    alias: 'count',
-  }
+  k: {$type: String, alias: 'key', maxLength: 191},
+  frq: {$type: Number, alias: 'firstRequest'},
+  lrq: {$type: Number, alias: 'lastRequest'},
+  c: {$type: Number, alias: 'count'},
+  ex: {$type: Date, alias: 'expires'}
 };
 
 schema = {
