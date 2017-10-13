@@ -21,6 +21,7 @@ const i18n = require('./i18n');
 const models = require('./models');
 const auth = require('./auth');
 const dbHealth = require('./data/db/health');
+const initMongoose = require('./data/db/index');
 const NahangServer = require('./nahang-server');
 const settings = require('./settings');
 const utils = require('./utils');
@@ -37,26 +38,31 @@ function init(options = {}) {
 
   models.init();
   debug('models done');
-
-  return dbHealth.check().then(() => {
-    debug('DB health check done.');
-    // Populate any missing default settings
-    // Refresh the API settings cache
-    return settings.init();
-  }).then(() => {
-    debug('Update settings cache done.');
-
-    // Setup our collection of express apps
-    parentApp = require('./app')();
-    debug('Express Apps done.');
-  }).then(() => {
-    parentApp.use(auth.init());
-    debug('Auth done');
-
-    debug('Server done');
-    debug('...Init End');
-    return new NahangServer(parentApp);
-  });
+  
+  return initMongoose.init()
+    .then(() => {
+      debug('Mongoose initialized');
+      
+      return dbHealth.check().then(() => {
+        debug('DB health check done.');
+        // Populate any missing default settings
+        // Refresh the API settings cache
+        return settings.init();
+      })
+    }).then(() => {
+      debug('Update settings cache done.');
+  
+      // Setup our collection of express apps
+      parentApp = require('./app')();
+      debug('Express Apps done.');
+    }).then(() => {
+      parentApp.use(auth.init());
+      debug('Auth done');
+  
+      debug('Server done');
+      debug('...Init End');
+      return new NahangServer(parentApp);
+    });
 }
 
 module.exports = init;

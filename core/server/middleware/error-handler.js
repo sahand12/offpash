@@ -64,10 +64,14 @@ _private.basicErrorRenderer = function basicErrorRenderer(err, req, res, next) {
   return res.send(`${err.statusCode} ${err.message}`);
 };
 
-errorHandler.resourceNotFound = function resourceNotFound(req, res, next) {
+errorHandler.resourceNotFound = function resourceNotFoundMiddleware(req, res, next) {
   // @TODO: handle unknown resources & methods differently, so that we can also
   // produce 405 Method Not Allowed.
-  return next(new errors.NotFoundError({message: i18n.t('errors.errors.pageNotFound')}));
+  return next(new errors.NotFoundError({message: i18n.t('errors.errors.resourceNotFound')}));
+};
+
+errorHandler.pageNotFound = function pageNotFoundMiddleware(req, res, next) {
+  return next(new errors.NotFoundError({message: i18n.t('errors.errors.pageNotFound')}))
 };
 
 errorHandler.handleJSONResponse = [

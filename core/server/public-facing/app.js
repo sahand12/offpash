@@ -30,7 +30,7 @@ module.exports = function setupPublicFacingApp() {
   
   const publicApp = express();
   
-  publicApp.set('view engine', 'hbs');
+  publicApp.set('view engine', 'pug');
   
   // Static content/assets
   // @TODO: Make sure all of these have a local 404 error handler

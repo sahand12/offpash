@@ -1,5 +1,5 @@
 'use strict';
-//const unidecode = require('unidecode');
+const unidecode = require('unidecode');
 const _ = require('lodash');
 
 const config = require('../config');
@@ -57,6 +57,38 @@ utils = {
     return buf.join('');
   },
   
+  /**
+   * @param {String} string
+   * @param {Object} options
+   */
+  safeString(string, options = {}) {
+    if (string === null) { string = ''; }
+    
+    // Handle the £ symbol separately, since it needs to be removed before the unicode conversion.
+    string = string.replace(/£/g, '');
+    
+    // Remove non ascii characters
+    string = unidecode(string);
+    
+    // Replace URL reserved chars: `@:/?#[]!$&()*+,;=` as well as `\%<>|^~£"{}'` and `\`
+    string = string.replace(/(\s|\.|\@|:|\/|\?|#|\[|\]|!|\$|\(|\)|\*|\+|,|;|=|\\|%|<|>|\||\^|~|"|\{|\}|`|–|—/g, '-')
+      .replace(/'/g, '') // Remove apostrophes
+      .toLowerCase(); // Make the whole thing lowercase
+    
+    // We don't need to make the following changes when importing data
+    if (!options.importing) {
+      // Convert 2 or more dashes into a single dash
+      string = string.replace(/-+/g, '-')
+        .replace(/-$/, '') // Remove trailing dashes
+        .replace(/^-/, ''); // Remove any dashes at the beginning
+    }
+    
+    // Handle whitespace at the beginning or end.
+    string = string.trim();
+    
+    return string;
+  },
+  
   // The token is encoded URL safe by replacing '+' with '-', '/' with '_' and removing '='
   // NOTE: the token is not encoded using valid base64 anymore.
   encodeBase64URLSafe (base64String) {
@@ -80,9 +112,10 @@ utils = {
     return res.redirect(301, path);
   },
   
-  url: require('./url'),
-  token: require('./tokens'),
   generateAssetHash: require('./asset-hash'),
+  removeOpenRedirectFromUrl: require('./remove-open-redirect-from-url'),
+  token: require('./tokens'),
+  url: require('./url'),
 };
 
 module.exports = utils;

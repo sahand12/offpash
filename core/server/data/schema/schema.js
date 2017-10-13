@@ -259,35 +259,15 @@ const accessTokens = {
   tp: {$type: String, alias: 'tokenType', enum: ['refresh', 'access']},
   uid: {$type: ObjectId, alias: 'userId', ref: 'User'},
   cid: {$type: ObjectId, alias: 'clientId', ref: 'Client'},
-  iby: {$type: ObjectId, alias: 'IssuedBy', ref: 'User' /*@TODO: User or refreshToken*/},
+  iby: {$type: ObjectId, alias: 'IssuedBy', ref: 'RefreshToken' /*@TODO: User or refreshToken*/},
   exp: {$type: Date, alias: 'expires'},
 };
 
 const refreshTokens = {
-  tk: {
-    type: String,
-    alias: 'token',
-    validators: {
-      maxLength: 191,
-    },
-    index: {
-      unique: true,
-    },
-  },
-  uid: {
-    type: ObjectId,
-    alias: 'userId',
-    ref: 'User',
-  },
-  cid: {
-    type: ObjectId,
-    alias: 'clientId',
-    ref: 'Client',
-  },
-  exp: {
-    type: Date,
-    alias: 'expires',
-  },
+  tk: {$type: String, alias: 'token', maxLength: 191, unique: true},
+  uid: {$type: ObjectId, alias: 'userId', ref: 'User'},
+  cid: {$type: ObjectId, alias: 'clientId', ref: 'Client'},
+  exp: {$type: Date, alias: 'expires'},
 };
 
 const brute = {

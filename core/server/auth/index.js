@@ -10,7 +10,7 @@ const init = function init(options) {
   return passport.init(options);
 };
 
-exports = modules.exports = {
+exports = module.exports = {
   init,
   oauth,
   authorize,

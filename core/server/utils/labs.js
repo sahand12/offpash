@@ -38,7 +38,7 @@ const labs = {
     };
     
     logging.error(new errors.DisabledFeatureError(errDetails));
-    errString = `<script>console.error("`${htmlEntities(_.values(errDetails).join(' '))}`")</script>`;
+    errString = `<script>console.error("${htmlEntities(_.values(errDetails).join(' '))}")</script>`;
     
     if (async) {
       return Promise.resolve(function asyncError() {
